@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MemoryGameController : MonoBehaviour
 {
     [SerializeField] MemoryTag tag;
+    [SerializeField] ParticleSystem ps;
     [SerializeField] float startRate = 1;
     [SerializeField] float speedUpRate = 0.1f;
     [SerializeField] TextMeshProUGUI timerTxt;
@@ -12,6 +13,7 @@ public class MemoryGameController : MonoBehaviour
     [SerializeField] TextMeshProUGUI typingTxt;
     [SerializeField] Transform startPos;
     [SerializeField] Sprite[] sprites;
+
     float timer = 0;
     float timeToNextTag;
     int tagCounter = 0;
@@ -96,7 +98,11 @@ public class MemoryGameController : MonoBehaviour
             {
                 if (memoryTags[i].memoryCode.ToString() == typedStr)
                 {
+                    ParticleSystem newPS= Instantiate(ps, memoryTags[i].gameObject.transform.position, Quaternion.Euler(0, 0, 0));
+                    newPS.startColor = memoryTags[i].GetComponent<SpriteRenderer>().color;
                     Destroy(memoryTags[i].gameObject);
+                    newPS.Play();
+                    Destroy(newPS.gameObject,2);
                     break;
                 }
             }

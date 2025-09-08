@@ -18,6 +18,7 @@ public class ScrewGameController : MonoBehaviour
     {
         Time.timeScale = 1;
         timeToNextScrew = 3;
+        GenerateScrew();
     }
 
     // Update is called once per frame
@@ -33,20 +34,26 @@ public class ScrewGameController : MonoBehaviour
         timeToNextScrew -= Time.deltaTime;
         if (timeToNextScrew < 0)
         {
-            float rndX = Random.Range(-3, 3);
-            float rndRot = Random.Range(-180, 180);
-            int rndScrew = Random.Range(0, 6);
-
-
-            Instantiate(screws[rndScrew], new Vector3(rndX, 12, 0), Quaternion.Euler(0, 0, rndRot));
-
-            screwCounter += 1;
-            timeToNextScrew = startRate - screwCounter * speedUpRate;
-            if (timeToNextScrew < 0.5f)
-                timeToNextScrew = 0.5f;
+            GenerateScrew();
 
         }
 
+    }
+
+
+    void GenerateScrew()
+    {
+        float rndX = Random.Range(-3, 3);
+        float rndRot = Random.Range(-180, 180);
+        int rndScrew = Random.Range(0, 6);
+
+
+        Instantiate(screws[rndScrew], new Vector3(rndX, 12, 0), Quaternion.Euler(0, 0, rndRot));
+
+        screwCounter += 1;
+        timeToNextScrew = startRate - screwCounter * speedUpRate;
+        if (timeToNextScrew < 0.5f)
+            timeToNextScrew = 0.5f;
     }
 
     public void EndOfGame()

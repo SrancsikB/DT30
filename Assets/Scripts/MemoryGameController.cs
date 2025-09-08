@@ -33,6 +33,7 @@ public class MemoryGameController : MonoBehaviour
         codesTxt[2].text = codes[2].ToString();
         codes[3] = Random.Range(1000, 10000);
         codesTxt[3].text = codes[3].ToString();
+        GenerateTag();
     }
 
     // Update is called once per frame
@@ -49,40 +50,7 @@ public class MemoryGameController : MonoBehaviour
         timeToNextTag -= Time.deltaTime;
         if (timeToNextTag < 0)
         {
-
-
-
-            MemoryTag newTag = Instantiate(tag, startPos.position, Quaternion.Euler(0, 0, 0));
-
-            newTag.memoryType = (MemoryTag.MemoryType)Random.RandomRange(0, 4);
-            switch (newTag.memoryType)
-            {
-                case MemoryTag.MemoryType.Alarm:
-                    newTag.memoryCode = codes[0];
-                    newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[0];
-                    break;
-                case MemoryTag.MemoryType.Card:
-                    newTag.memoryCode = codes[1];
-                    newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[1];
-                    break;
-                case MemoryTag.MemoryType.Petrol:
-                    newTag.memoryCode = codes[2];
-                    newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[2];
-                    break;
-                case MemoryTag.MemoryType.Mobile:
-                    newTag.memoryCode = codes[3];
-                    newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[3];
-                    break;
-                default:
-                    break;
-            }
-
-            tagCounter += 1;
-            timeToNextTag = startRate - tagCounter * speedUpRate;
-            if (timeToNextTag < 0.5f)
-                timeToNextTag = 0.5f;
-
-
+            GenerateTag();
 
         }
 
@@ -124,6 +92,38 @@ public class MemoryGameController : MonoBehaviour
 
     }
 
+    void GenerateTag()
+    {
+        MemoryTag newTag = Instantiate(tag, startPos.position, Quaternion.Euler(0, 0, 0));
+
+        newTag.memoryType = (MemoryTag.MemoryType)Random.RandomRange(0, 4);
+        switch (newTag.memoryType)
+        {
+            case MemoryTag.MemoryType.Alarm:
+                newTag.memoryCode = codes[0];
+                newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[0];
+                break;
+            case MemoryTag.MemoryType.Card:
+                newTag.memoryCode = codes[1];
+                newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[1];
+                break;
+            case MemoryTag.MemoryType.Petrol:
+                newTag.memoryCode = codes[2];
+                newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[2];
+                break;
+            case MemoryTag.MemoryType.Mobile:
+                newTag.memoryCode = codes[3];
+                newTag.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sprites[3];
+                break;
+            default:
+                break;
+        }
+
+        tagCounter += 1;
+        timeToNextTag = startRate - tagCounter * speedUpRate;
+        if (timeToNextTag < 0.5f)
+            timeToNextTag = 0.5f;
+    }
 
 
 

@@ -105,8 +105,8 @@ public class SubjectGameController : MonoBehaviour
 
         tagCounter += 1;
         timeToNextTag = startRate - tagCounter * speedUpRate;
-        if (timeToNextTag < 0.5f)
-            timeToNextTag = 0.5f;
+        if (timeToNextTag < 0.55f)
+            timeToNextTag = 0.55f;
     }
 
 
